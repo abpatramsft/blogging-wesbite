@@ -146,6 +146,12 @@ main {
     margin: 0 0 6px;
     font-size: 1.3rem;
 }
+.post-card h2 a {
+    color: var(--text);
+}
+.post-card h2 a:hover {
+    color: var(--accent);
+}
 .post-card .excerpt {
     color: var(--muted);
     margin: 8px 0 0;
