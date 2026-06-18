@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studio · My Blog</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="inner">
+            <a class="brand" href="/">📝 My Blog</a>
+            <nav class="nav">
+                <a href="/">View site</a>
+                <a href="/studio.html">Studio</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="studio-layout">
+            <aside class="sidebar">
+                <button class="btn btn-primary" id="new-post" style="width:100%;margin-bottom:12px;">+ New post</button>
+                <h3>Posts</h3>
+                <ul class="sidebar-list" id="post-list"></ul>
+            </aside>
+
+            <section class="editor">
+                <div class="editor-toolbar">
+                    <button class="btn" id="view-split" data-view="split">Split</button>
+                    <button class="btn" id="view-write" data-view="write">Write</button>
+                    <button class="btn" id="view-preview" data-view="preview">Preview</button>
+                    <span class="spacer"></span>
+                    <button class="btn btn-success" id="save-btn">Save draft</button>
+                    <button class="btn btn-primary" id="publish-btn">Publish</button>
+                    <button class="btn btn-danger" id="delete-btn">Delete</button>
+                </div>
+
+                <div class="field">
+                    <label for="title">Title</label>
+                    <input id="title" type="text" placeholder="Post title" />
+                </div>
+                <div class="field">
+                    <label for="tags">Tags (comma separated)</label>
+                    <input id="tags" type="text" placeholder="welcome, getting-started" />
+                </div>
+
+                <div class="split" id="editor-panes">
+                    <div class="field" id="write-pane" style="margin-bottom:0;">
+                        <label for="content">Markdown</label>
+                        <textarea id="content" placeholder="Write your post in Markdown…"></textarea>
+                    </div>
+                    <div id="preview-pane">
+                        <label>Preview</label>
+                        <div class="preview article-body" id="preview"></div>
+                    </div>
+                </div>
+
+                <p class="status-line" id="status"></p>
+            </section>
+        </div>
+    </main>
+    <script src="/js/studio.js"></script>
+</body>
+</html>
