@@ -141,6 +141,18 @@ code {
 .hero-sub strong { color: var(--ink-2); font-weight: 600; }
 .hero-actions { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
 
+/* ===== Search ===== */
+.search-bar { margin-bottom: 28px; max-width: 520px; }
+.search-input {
+    width: 100%; font-family: var(--font-sans); font-size: 0.98rem; color: var(--ink);
+    background: var(--bg-soft); border: 1px solid var(--line-2); border-radius: var(--radius-sm);
+    padding: 13px 18px; transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.search-input::placeholder { color: var(--muted-2); }
+.search-input:focus {
+    outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(11,11,12,0.06);
+}
+
 /* ===== Post list (cards) ===== */
 .list-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
 .post-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }

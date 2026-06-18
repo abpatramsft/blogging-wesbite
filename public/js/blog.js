@@ -64,6 +64,37 @@ function observeReveals() {
     els.forEach((el) => io.observe(el));
 }
 
+function matchesQuery(post, query) {
+    if (!query) return true;
+    const haystack = [
+        post.title,
+        post.excerpt,
+        ...(Array.isArray(post.tags) ? post.tags : []),
+    ]
+        .join(" ")
+        .toLowerCase();
+    return query
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean)
+        .every((term) => haystack.includes(term));
+}
+
+function cardHtml(p, i) {
+    const date = fmtDate(p.publishedAt || p.updatedAt);
+    return `
+        <article class="post-card reveal">
+            <span class="num">${String(i + 1).padStart(2, "0")}</span>
+            <h2><a href="#/post/${encodeURIComponent(p.slug)}">${esc(p.title)}</a></h2>
+            ${p.excerpt ? `<p class="excerpt">${esc(p.excerpt)}</p>` : `<p class="excerpt"></p>`}
+            <div class="meta">
+                ${date ? `<span>${date}</span>` : ""}
+                ${date && p.tags && p.tags.length ? `<span class="dot-sep"></span>` : ""}
+                ${tagsHtml(p.tags)}
+            </div>
+        </article>`;
+}
+
 async function renderList() {
     app.innerHTML = `<div class="container"><div class="empty">Loading posts…</div></div>`;
     let posts;
@@ -103,23 +134,6 @@ async function renderList() {
         return;
     }
 
-    const cards = posts
-        .map((p, i) => {
-            const date = fmtDate(p.publishedAt || p.updatedAt);
-            return `
-        <article class="post-card reveal">
-            <span class="num">${String(i + 1).padStart(2, "0")}</span>
-            <h2><a href="#/post/${encodeURIComponent(p.slug)}">${esc(p.title)}</a></h2>
-            ${p.excerpt ? `<p class="excerpt">${esc(p.excerpt)}</p>` : `<p class="excerpt"></p>`}
-            <div class="meta">
-                ${date ? `<span>${date}</span>` : ""}
-                ${date && p.tags && p.tags.length ? `<span class="dot-sep"></span>` : ""}
-                ${tagsHtml(p.tags)}
-            </div>
-        </article>`;
-        })
-        .join("");
-
     app.innerHTML =
         hero +
         `<section class="section" id="posts"><div class="container">
@@ -127,8 +141,35 @@ async function renderList() {
                 <span class="kicker">The archive</span>
                 <h2 class="section-title">Latest posts</h2>
             </div>
-            <div class="post-grid">${cards}</div>
+            <div class="search-bar reveal">
+                <input
+                    id="search-input"
+                    type="search"
+                    class="search-input"
+                    placeholder="Search posts by title, tag, or summary…"
+                    autocomplete="off"
+                    aria-label="Search posts"
+                />
+            </div>
+            <div class="post-grid" id="post-grid"></div>
         </div></section>`;
+
+    const input = document.getElementById("search-input");
+    const grid = document.getElementById("post-grid");
+
+    function update() {
+        const query = input.value.trim();
+        const matches = posts.filter((p) => matchesQuery(p, query));
+        if (!matches.length) {
+            grid.innerHTML = `<div class="empty">No posts match “${esc(query)}”.</div>`;
+            return;
+        }
+        grid.innerHTML = matches.map((p, i) => cardHtml(p, i)).join("");
+        observeReveals();
+    }
+
+    input.addEventListener("input", update);
+    update();
     observeReveals();
 }
 
