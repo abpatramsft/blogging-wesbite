@@ -35,6 +35,34 @@ function tagsHtml(tags) {
     return tags.map((t) => `<span class="tag">${esc(t)}</span>`).join(" ");
 }
 
+function matchesQuery(post, query) {
+    if (!query) return true;
+    const haystack = [
+        post.title,
+        post.excerpt,
+        ...(Array.isArray(post.tags) ? post.tags : []),
+    ]
+        .join(" ")
+        .toLowerCase();
+    return query
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean)
+        .every((term) => haystack.includes(term));
+}
+
+function postCardHtml(p) {
+    return `
+        <li class="post-card">
+            <h2><a href="#/post/${encodeURIComponent(p.slug)}">${esc(p.title)}</a></h2>
+            <div class="meta">
+                <span>${fmtDate(p.publishedAt || p.updatedAt)}</span>
+                ${tagsHtml(p.tags)}
+            </div>
+            ${p.excerpt ? `<p class="excerpt">${esc(p.excerpt)}</p>` : ""}
+        </li>`;
+}
+
 async function renderList() {
     app.innerHTML = `<div class="empty">Loading posts…</div>`;
     let posts;
@@ -51,20 +79,35 @@ async function renderList() {
         </div>`;
         return;
     }
-    const items = posts
-        .map(
-            (p) => `
-        <li class="post-card">
-            <h2><a href="#/post/${encodeURIComponent(p.slug)}">${esc(p.title)}</a></h2>
-            <div class="meta">
-                <span>${fmtDate(p.publishedAt || p.updatedAt)}</span>
-                ${tagsHtml(p.tags)}
-            </div>
-            ${p.excerpt ? `<p class="excerpt">${esc(p.excerpt)}</p>` : ""}
-        </li>`,
-        )
-        .join("");
-    app.innerHTML = `<ul class="post-list">${items}</ul>`;
+
+    app.innerHTML = `
+        <div class="search-bar">
+            <input
+                id="search-input"
+                type="search"
+                class="search-input"
+                placeholder="Search posts by title, tag, or summary…"
+                autocomplete="off"
+                aria-label="Search posts"
+            />
+        </div>
+        <ul class="post-list" id="post-list"></ul>`;
+
+    const input = document.getElementById("search-input");
+    const list = document.getElementById("post-list");
+
+    function update() {
+        const query = input.value.trim();
+        const matches = posts.filter((p) => matchesQuery(p, query));
+        if (!matches.length) {
+            list.innerHTML = `<li class="empty">No posts match “${esc(query)}”.</li>`;
+            return;
+        }
+        list.innerHTML = matches.map(postCardHtml).join("");
+    }
+
+    input.addEventListener("input", update);
+    update();
 }
 
 async function renderPost(slug) {
