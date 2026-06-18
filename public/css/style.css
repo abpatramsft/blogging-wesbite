@@ -34,31 +34,58 @@ a:hover {
 
 .site-header {
     border-bottom: 1px solid var(--border);
-    background: var(--surface);
+    background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: saturate(140%) blur(6px);
 }
 .site-header .inner {
     max-width: var(--maxw);
     margin: 0 auto;
-    padding: 16px 20px;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
 }
 .brand {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: opacity 0.15s ease;
 }
 .brand:hover {
     text-decoration: none;
+    opacity: 0.85;
+}
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 .nav a {
-    margin-left: 16px;
+    position: relative;
+    padding: 6px 12px;
+    border-radius: 8px;
     color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.15s ease, background 0.15s ease;
 }
 .nav a:hover {
     color: var(--text);
+    background: var(--surface-2);
+    text-decoration: none;
 }
 
 main {
