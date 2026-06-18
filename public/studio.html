@@ -3,62 +3,89 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Studio · My Blog</title>
+    <title>Studio · Ledger</title>
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='9' fill='%23f4703a'/%3E%3Ccircle cx='24' cy='42' r='5.5' fill='%233f6ef0'/%3E%3Ccircle cx='76' cy='58' r='5.5' fill='%238b5cf6'/%3E%3Ccircle cx='44' cy='78' r='5.5' fill='%23ec4d6b'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-    <header class="site-header">
-        <div class="inner">
-            <a class="brand" href="/">📝 My Blog</a>
-            <nav class="nav">
-                <a href="/">View site</a>
+    <header class="site-header scrolled" id="siteHeader">
+        <div class="container header-inner">
+            <a class="brand" href="/" aria-label="Ledger home">
+                <span class="brand-mark" aria-hidden="true">
+                    <span class="dot dot-core"></span>
+                    <span class="dot dot-a"></span>
+                    <span class="dot dot-b"></span>
+                    <span class="dot dot-c"></span>
+                </span>
+                <span class="brand-name">Ledger</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a href="/">Home</a>
                 <a href="/studio.html">Studio</a>
             </nav>
+            <div class="header-cta">
+                <a class="btn btn-ghost btn-sm" href="/">View site <span aria-hidden="true">→</span></a>
+            </div>
         </div>
     </header>
-    <main>
-        <div class="studio-layout">
-            <aside class="sidebar">
-                <button class="btn btn-primary" id="new-post" style="width:100%;margin-bottom:12px;">+ New post</button>
-                <h3>Posts</h3>
-                <ul class="sidebar-list" id="post-list"></ul>
-            </aside>
 
-            <section class="editor">
-                <div class="editor-toolbar">
-                    <button class="btn" id="view-split" data-view="split">Split</button>
-                    <button class="btn" id="view-write" data-view="write">Write</button>
-                    <button class="btn" id="view-preview" data-view="preview">Preview</button>
-                    <span class="spacer"></span>
-                    <button class="btn btn-success" id="save-btn">Save draft</button>
-                    <button class="btn btn-primary" id="publish-btn">Publish</button>
-                    <button class="btn btn-danger" id="delete-btn">Delete</button>
+    <main class="page">
+        <div class="container studio-main">
+            <div class="studio-head">
+                <div>
+                    <span class="kicker">Writing studio</span>
+                    <h1>Studio</h1>
                 </div>
+                <button class="btn btn-accent" id="new-post">+ New post</button>
+            </div>
 
-                <div class="field">
-                    <label for="title">Title</label>
-                    <input id="title" type="text" placeholder="Post title" />
-                </div>
-                <div class="field">
-                    <label for="tags">Tags (comma separated)</label>
-                    <input id="tags" type="text" placeholder="welcome, getting-started" />
-                </div>
+            <div class="studio-layout">
+                <aside class="sidebar">
+                    <h3>Your posts</h3>
+                    <ul class="sidebar-list" id="post-list"></ul>
+                </aside>
 
-                <div class="split" id="editor-panes">
-                    <div class="field" id="write-pane" style="margin-bottom:0;">
-                        <label for="content">Markdown</label>
-                        <textarea id="content" placeholder="Write your post in Markdown…"></textarea>
+                <section class="editor">
+                    <div class="editor-toolbar">
+                        <button class="btn btn-sm" id="view-split" data-view="split">Split</button>
+                        <button class="btn btn-sm" id="view-write" data-view="write">Write</button>
+                        <button class="btn btn-sm" id="view-preview" data-view="preview">Preview</button>
+                        <span class="spacer"></span>
+                        <button class="btn btn-sm btn-success" id="save-btn">Save draft</button>
+                        <button class="btn btn-sm btn-solid" id="publish-btn">Publish</button>
+                        <button class="btn btn-sm btn-danger" id="delete-btn">Delete</button>
                     </div>
-                    <div id="preview-pane">
-                        <label>Preview</label>
-                        <div class="preview article-body" id="preview"></div>
-                    </div>
-                </div>
 
-                <p class="status-line" id="status"></p>
-            </section>
+                    <div class="field">
+                        <label for="title">Title</label>
+                        <input id="title" type="text" placeholder="Post title" />
+                    </div>
+                    <div class="field">
+                        <label for="tags">Tags (comma separated)</label>
+                        <input id="tags" type="text" placeholder="welcome, getting-started" />
+                    </div>
+
+                    <div class="split" id="editor-panes">
+                        <div class="field" id="write-pane" style="margin-bottom:0;">
+                            <label for="content">Markdown</label>
+                            <textarea id="content" placeholder="Write your post in Markdown…"></textarea>
+                        </div>
+                        <div id="preview-pane">
+                            <label class="field-label" style="display:block;font-family:var(--font-mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted-2);margin-bottom:8px;">Preview</label>
+                            <div class="preview article-body" id="preview"></div>
+                        </div>
+                    </div>
+
+                    <p class="status-line" id="status"></p>
+                </section>
+            </div>
         </div>
     </main>
+
     <script src="/js/studio.js"></script>
 </body>
 </html>

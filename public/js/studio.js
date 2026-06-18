@@ -171,6 +171,9 @@ function setView(view) {
     els.writePane.style.display = view === "preview" ? "none" : "";
     els.previewPane.style.display = view === "write" ? "none" : "";
     els.panes.style.gridTemplateColumns = view === "split" ? "1fr 1fr" : "1fr";
+    document.querySelectorAll("[data-view]").forEach((b) =>
+        b.classList.toggle("active", b.dataset.view === view),
+    );
 }
 
 els.newBtn.addEventListener("click", newPost);

@@ -3,22 +3,82 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Blog</title>
+    <title>Ledger — a blog</title>
+    <meta name="description" content="A locally-deployable blog. Writing that compounds — published as Markdown, rendered clean." />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='9' fill='%23f4703a'/%3E%3Ccircle cx='24' cy='42' r='5.5' fill='%233f6ef0'/%3E%3Ccircle cx='76' cy='58' r='5.5' fill='%238b5cf6'/%3E%3Ccircle cx='44' cy='78' r='5.5' fill='%23ec4d6b'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-    <header class="site-header">
-        <div class="inner">
-            <a class="brand" href="#/">📝 My Blog</a>
-            <nav class="nav">
+    <header class="site-header" id="siteHeader">
+        <div class="container header-inner">
+            <a class="brand" href="#/" aria-label="Ledger home">
+                <span class="brand-mark" aria-hidden="true">
+                    <span class="dot dot-core"></span>
+                    <span class="dot dot-a"></span>
+                    <span class="dot dot-b"></span>
+                    <span class="dot dot-c"></span>
+                </span>
+                <span class="brand-name">Ledger</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
                 <a href="#/">Home</a>
+                <a href="#/">Latest</a>
                 <a href="/studio.html">Studio</a>
             </nav>
+            <div class="header-cta">
+                <a class="btn btn-ghost btn-sm" href="#/">Browse posts</a>
+                <a class="btn btn-solid btn-sm" href="/studio.html">Write <span aria-hidden="true">→</span></a>
+            </div>
         </div>
     </header>
-    <main id="app">
-        <div class="empty">Loading…</div>
+
+    <main class="page" id="app">
+        <div class="container"><div class="empty">Loading…</div></div>
     </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <a class="brand" href="#/">
+                        <span class="brand-mark" aria-hidden="true">
+                            <span class="dot dot-core"></span>
+                            <span class="dot dot-a"></span>
+                            <span class="dot dot-b"></span>
+                            <span class="dot dot-c"></span>
+                        </span>
+                        <span class="brand-name">Ledger</span>
+                    </a>
+                    <p>A locally-deployable blog. Writing that compounds — drafted in the Studio, published as Markdown, rendered clean.</p>
+                </div>
+                <nav class="footer-nav" aria-label="Footer">
+                    <div>
+                        <span class="footer-head">Read</span>
+                        <a href="#/">All posts</a>
+                        <a href="#/">Latest</a>
+                    </div>
+                    <div>
+                        <span class="footer-head">Write</span>
+                        <a href="/studio.html">Studio</a>
+                        <a href="/studio.html">New post</a>
+                    </div>
+                    <div>
+                        <span class="footer-head">More</span>
+                        <a href="https://github.com/abpatramsft/blogging-wesbite" target="_blank" rel="noopener">Source</a>
+                    </div>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <span>© <span id="year"></span> Ledger</span>
+                <span>Built locally · Markdown-native</span>
+            </div>
+        </div>
+    </footer>
+
     <script src="/js/blog.js"></script>
 </body>
 </html>
